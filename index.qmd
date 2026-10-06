@@ -1,0 +1,582 @@
+---
+title: "Sample project"
+---
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+---
+title: "Group 6 - Acute coronary syndrome and Africa"
+subtitle: "Studio wall"
+author: "Group names here"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+# Spine
+
+> Who arrives in acute coronary crisis, which habits travel with that crisis,
+> and where in Africa is life short?
+
+This sentence stays at the top. Every panel must attach to it. If a plot
+cannot be introduced in a clause that hangs off this line, it is off the wall.
+
+# Introduction - the tables we own
+
+This folder is ours for the ten days. Three tables, three shapes.
+
+- **Panel A** (`panel-A.csv`) - ACS clinic file: age, height, weight, BMI,
+  ejection fraction, lipids. `sex` and `obesity` for grouping.
+- **Panel B** (`panel-B.csv`) - same people, categorical information.
+- **Panel C** (`panel-C.csv`) - Africa data.
+
+We load from this folder:
+
+```{r}
+library(readr)
+library(tidyverse)
+library(skimr)
+
+A <- read_csv("data/panel-A.csv")
+B <- read_csv("data/panel-B.csv")
+C <- read_csv("data/panel-C.csv")
+```
+
+# Panel A - body / measure
+
+*age, BMI, EF, TC, LDLC, HDLC, TG are Quant. obesity and sex are Quals for split.*
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(A)
+
+```
+```{r}
+skim(A)
+```
+
+### 2. Ask
+
+Questions this table can answer.
+1. Is age associated with EF?
+2. Is TC associated with LDLC?
+3. Does EF differ between males and females?
+4. Does obesity status vary between males and females?
+5. Is obesity independent of age?
+6. Does height, age and sex of the person effect BMI?
+7. Does EF decrease with age?
+8. Does the proportion of obese and non obese patients differ between males and females?
+9. Do obese patients generally show higher BMI values than non-obese patients?
+10.How many obese and non-obese participants are there in the dataset?
+11.How are the participants’ weights distributed?
+12.What is the age distribution of the participants?
+
+
+One question this table cannot answer.
+1. Is regular physical activity associated with ejection fraction (EF)?
+2. Does smoking cause higher cholesterol?
+3. Do diabetic patients have higher BMI?
+4. Does high blood pressure lead to lower EF?
+5. Does obesity cause a lower ejection fraction?
+6. Which patients had a STEMI, NSTEMI, or Unstable Angina?
+7. Will patients with high BMI develop heart disease in the future?
+
+### 3. Choose a mark
+
+Use bar charts, histograms, box plots, or scatter plots depending on the type of variables and the questions being answered. 
+
+### 4. Predict
+
+I expect some variables such as BMI and obesity status to show clear differences, while relationships involving age, EF.
+
+### 5. Make
+
+Create the graphs using ggplot2, and summaries or statistical tests where appropriate to examine the pattern in the data.
+
+1. Is age associated with EF?
+```{r}
+
+
+A |>
+  ggplot() +
+  geom_point(
+    aes(
+      x = age,
+      y = EF
+    )
+  )
+
+
+```
+2. Is TC associated with LDLC?
+```{r}
+A |>
+  ggplot() +
+  geom_point(
+    aes(
+      x = TC,
+      y = LDLC
+    )
+  )
+```
+3. Does EF differ between males and females?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = sex,
+      y = EF
+    )
+  )
+```
+4. Does obesity status vary between males and females?
+```{r}
+A |>
+  ggplot() +
+  geom_bar(
+    aes(
+      x = sex,
+      fill = obesity
+    ),
+    position = "dodge"
+  )
+```
+5. Is obesity independent of age?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = obesity,
+      y = age
+    )
+  )
+```
+6. Does height, age and sex of the person effect BMI ?
+```{r}
+A |>
+  ggplot() +
+  geom_point(
+    aes(
+      x = height,
+      y = BMI,
+      color = sex,
+      size = age
+    )
+  )
+```
+7. Does EF decrease with age?
+```{r}
+A |>
+  ggplot(aes(x = age, y = EF)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+8. Does the proportion of obese and non obese patients differ between males and females?
+```{r}
+A |>
+  ggplot() +
+  geom_bar(
+    aes(
+      x = sex,
+      fill = obesity
+    ),
+    position = "fill"
+  )
+```
+9. Do obese patients generally show higher BMI values than non-obese patients?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = obesity,
+      y = BMI
+    )
+  )
+```
+10. How many obese and non-obese participants are there in the dataset?
+
+```{r}
+A |>
+  ggplot(aes(x = obesity)) +
+  geom_bar()
+```
+11. How are the participants’ weights distributed?
+
+```{r}
+A |>
+  ggplot() +
+  geom_histogram(aes(x = weight), bins = 30)
+```
+12. What is the age distribution of the participants?
+
+```{r}
+A |>
+  ggplot() +
+  geom_histogram(aes(x = age), bins = 30)
+```
+
+
+Does EF differ between males and females?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = sex,
+      y = EF
+    )
+  )
+```
+```{r}
+A |>
+  group_by(sex) |>
+  summarize(
+    mean_EF = mean(EF, na.rm = TRUE)
+  )
+```
+```{r}
+mosaic::t_test(EF ~ sex, data = A)
+```
+Is obesity independent of age?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = obesity,
+      y = age
+    )
+  )
+```
+```{r}
+A |>
+  group_by(obesity) |>
+  summarize(
+    mean_age = mean(age, na.rm = TRUE)
+  )
+```
+```{r}
+mosaic::t_test(age ~ obesity, data = A)
+```
+Do obese patients generally show higher BMI values than non-obese patients?
+```{r}
+A |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = obesity,
+      y = BMI
+    )
+  )
+```
+```{r}
+A |>
+  group_by(obesity) |>
+  summarize(
+    mean_BMI = mean(BMI, na.rm = TRUE)
+  )
+```
+```{r}
+mosaic::t_test(BMI ~ obesity, data = A)
+```
+
+
+
+
+
+### 6. Say
+
+6. Does height, age and sex of the person effect BMI?
+Ans. This graph is special because height and BMI are shown through position, while sex is shown by color and age by the size of the points.
+
+### 7. Limit
+
+Panel A can only answer questions using the variables available in the table. It cannot answer questions about smoking, diagnosis, diabetes etc..
+
+
+# Panel B - category / talk
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(B)
+skim(B)
+```
+
+### 2. Ask
+
+One question this table can answer.
+1.Does smoking status vary by sex?
+2.Are the observed obesity patterns for males and females different from what would be expected by chance?
+3.Does smoking status differ across STEMI, NSTEMI, and Unstable Angina patients?
+4.Is obesity distributed differently across the different diagnosis groups?
+5.Is cardiogenic shock more common in certain diagnosis groups?
+6.Does the type of entry, Radial or Femoral, differ across diagnosis groups?
+7.Is diabetes associated with high blood pressure?
+8.Is cardiogenic shock associated with smoking status?
+
+One question this table cannot answer.
+1. What is the average age of patients with STEMI?
+Ans. Age is not available in Panel B.
+
+2. Do obese patients have a higher BMI than non-obese patients?
+Ans. BMI values are not available in Panel B.
+
+3. Do smokers have higher cholesterol levels than non-smokers?
+Ans. Cholestrol levels are not available in Panel B.
+
+4. Do patients with diabetes have a lower ejection fraction?
+Ans. Ejection fraction is not available in Panel B.
+
+5. Which patients recovered faster after treatment?
+Ans. Panel B does not contain treatment or recovery time information.
+
+6. How long had each patient been smoking?
+Ans. Panel B gives smoking status but not the duration of smoking.
+
+
+### 3. Choose a mark
+
+Use bar chart and mosaic plots to compare qualitative variables, followed by chi-square test.
+
+### 4. Predict
+
+I expect some qualitative variables to show clear differences between groups, while others may show little or no difference.
+
+### 5. Make
+
+```{r}
+vcd::structable(smoking ~ sex, data = B)
+```
+1.Does smoking status vary by sex?
+
+```{r}
+B |>
+  gf_bar(~ sex, fill = ~ smoking, position = "dodge")
+```
+
+```{r}
+vcd::structable(smoking ~ sex, data = B) |> vcd::mosaic()
+
+```
+```{r}
+vcd::structable(smoking ~ sex, data = B) |> vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(smoking ~ sex, data = B)
+```
+2.Are the observed obesity patterns for males and females different from what would be expected by chance?
+
+```{r}
+B |>
+  gf_bar(~ sex, fill = ~ obesity, position = "dodge")
+```
+
+```{r}
+vcd::structable(obesity ~ sex, data = B) |> vcd::mosaic()
+```
+```{r}
+vcd::structable(obesity ~ sex, data = B) |> vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(obesity ~ sex, data = B)
+```
+3.Does smoking status differ across STEMI, NSTEMI, and Unstable Angina patients?
+```{r}
+
+B |>
+  gf_bar(~ Dx, fill = ~ smoking, position = "dodge")
+```
+
+
+```{r}
+vcd::structable(smoking ~ Dx, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(smoking ~ Dx, data = B) |>
+  vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(smoking ~ Dx, data = B)
+```
+4. Is obesity distributed differently across the different diagnosis groups?
+
+```{r}
+
+B |>
+  gf_bar(~ Dx, fill = ~ obesity, position = "dodge")
+```
+```{r}
+B |> gf_bar(~Dx, fill = ~ obesity, position = "fill")
+```
+
+```{r}
+vcd::structable(obesity ~ Dx, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(obesity ~ Dx, data = B) |>
+  vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(obesity ~ Dx, data = B)
+```
+
+5.Is cardiogenic shock more common in certain diagnosis groups?
+
+```{r}
+
+B |>
+  gf_bar(~ Dx, fill = ~ cardiogenicShock, position = "dodge")
+```
+
+```{r}
+vcd::structable(cardiogenicShock ~ Dx, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(cardiogenicShock ~ Dx, data = B) |>
+  vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(cardiogenicShock ~ Dx, data = B)
+```
+6. Does the type of entry, Radial or Femoral, differ across diagnosis groups?
+```{r}
+B |>
+  gf_bar(~ Dx, fill = ~ entry, position = "dodge")
+```
+
+```{r}
+vcd::structable(entry ~ Dx, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(entry ~ Dx, data = B) |>
+  vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(entry ~ Dx, data = B)
+```
+7.Is diabetes associated with high blood pressure?
+```{r}
+B |>
+  gf_bar(~ HBP, fill = ~ DM, position = "dodge")
+```
+
+```{r}
+vcd::structable(DM ~ HBP, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(DM ~ HBP, data = B) |>
+  vcd::mosaic(type = "expected")
+```
+```{r}
+mosaic::xchisq.test(DM ~ HBP, data = B)
+```
+8.Is cardiogenic shock associated with smoking status?
+
+```{r}
+B |>
+  gf_bar(~ smoking, fill = ~ cardiogenicShock, position = "dodge")
+```
+
+
+```{r}
+vcd::structable(cardiogenicShock ~ smoking, data = B) |>
+  vcd::mosaic()
+```
+```{r}
+vcd::structable(cardiogenicShock ~ smoking, data = B) |>
+  vcd::mosaic(type = "expected")
+
+```
+```{r}
+mosaic::xchisq.test(cardiogenicShock ~ smoking, data = B)
+```
+
+### 6. Say
+
+The graphs helped me see the differences between the groups, and the chi-square test helped me check whether the differences is making sense.
+
+### 7. Limit
+
+Panel B can only answer questions using the variables available in the table and the results shows the associations.
+
+
+# Panel C - place
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(C)
+skim(C)
+```
+
+### 2. Ask
+
+One question this table can answer.
+
+One question this table cannot answer.
+
+### 3. Choose a mark
+
+Choose the map or graph type before coding.
+
+### 4. Predict
+
+What do we think we will see?
+
+### 5. Make
+
+```{r}
+
+```
+
+### 6. Say
+
+Caption + one sentence we will stand behind.
+
+### 7. Limit
+
+What this panel cannot do.
+
+
+# Conclusion
+From Panel B, I could see that some groups had differences. Cardiogenic shock was seen more in STEMI patients.From the graphs it looks like there is some relationships, and the chi-square test helped me check whether the difference is meaningful. Panel B doesn't have numerical variables like age,BMI etc so those questions cannot be answered. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

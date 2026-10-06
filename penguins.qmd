@@ -1,0 +1,165 @@
+```{r}
+library(readr)
+library(tidyverse)
+library(skimr)
+
+A <- read_csv("data/panel-A.csv")
+B <- read_csv("data/panel-B.csv")
+C <- read_csv("data/panel-C.csv")libr
+```
+
+```{r}
+diamonds |>
+  ggplot(
+    aes(
+      x = carat,
+      y = price,
+      color = cut,
+      shape = cut
+    )
+  ) +
+  geom_point()
+```
+
+```{r}
+
+
+library(ggformula)
+library(tidyverse)
+library(mosaic)
+library(skimr)
+library(babynames)
+```
+
+```{r}
+glimpse(penguins)
+```
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_bar(aes(x = species))
+```
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_bar(aes(x = island))
+```
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_bar(aes(x = island, fill = species))
+```
+
+```{r}
+penguins |>
+  gf_bar(~ species)
+```
+
+```{r}
+penguins |>
+  gf_bar(~ species, fill = ~ species)
+```
+
+```{r}
+penguins |>
+  gf_bar(~ species, fill = ~ island)
+```
+
+```{r}
+penguins |>
+  gf_bar(
+    ~ species,
+    fill = ~ island,
+    position = "dodge"
+  )
+```
+
+```{r}
+penguins |>
+  gf_histogram(~ body_mass, bins = 50)
+```
+
+```{r}
+penguins |>
+  gf_histogram(
+    ~ body_mass,
+    bins = 50,
+    fill = ~ species
+  )
+```
+
+```{r}
+penguins |>
+  gf_density(
+    ~ body_mass,
+    fill = ~ species
+  )
+```
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_point(
+    aes(
+      x = flipper_len,
+      y = body_mass,
+      color = species
+    )
+  )
+```
+
+```{r}
+penguins |>
+  gf_point(
+    body_mass ~ flipper_len,
+    color = ~ species
+  )
+```
+
+```{r}
+penguins |>
+  ggplot() +
+  geom_boxplot(
+    aes(
+      x = body_mass,
+      y = species
+    )
+  )
+```
+
+```{r}
+species_graph <- penguins |>
+  ggplot() +
+  geom_bar(aes(x = species))
+```
+
+```{r}
+bodymass_histogram <- penguins |>
+  gf_histogram(
+    ~ body_mass,
+    bins = 50,
+    fill = ~ species
+  )
+
+bodymass_histogram
+```
+```{r}
+penguins |>
+  gf_histogram(~ body_mass, fill = ~ sex)
+```
+```{r}
+penguins |>
+  group_by(sex) |>
+  summarize(
+    mean_weight = mean(body_mass, na.rm = TRUE)
+  )
+```
+
+```{r}
+mosaic::t_test(body_mass ~ sex, data = penguins)
+```
+
+
