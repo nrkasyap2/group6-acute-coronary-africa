@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Group names here">
+<meta name="author" content="Kasyap N R, Rachana, Jayani (Panels A &amp; B); Kasyap N R, Madhumitha, Jai, Jayani (Panel C)">
 
 <title>Group 6 - Acute coronary syndrome and Africa – Kasyap</title>
 <style>
@@ -160,6 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#panel-a---body-measure" id="toc-panel-a---body-measure" class="nav-link" data-scroll-target="#panel-a---body-measure">Panel A - body / measure</a></li>
   <li><a href="#panel-b---category-talk" id="toc-panel-b---category-talk" class="nav-link" data-scroll-target="#panel-b---category-talk">Panel B - category / talk</a></li>
   <li><a href="#panel-c---place" id="toc-panel-c---place" class="nav-link" data-scroll-target="#panel-c---place">Panel C - place</a></li>
+  <li><a href="#panel-d---erin-brockovich" id="toc-panel-d---erin-brockovich" class="nav-link" data-scroll-target="#panel-d---erin-brockovich">Panel D - Erin Brockovich</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -180,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Group names here </p>
+             <p>Kasyap N R, Rachana, Jayani (Panels A &amp; B); Kasyap N R, Madhumitha, Jai, Jayani (Panel C) </p>
           </div>
   </div>
     
@@ -193,8 +194,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
 <section id="spine" class="level1">
 <h1>Spine</h1>
 <blockquote class="blockquote">
@@ -204,11 +203,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="introduction---the-tables-we-own" class="level1">
 <h1>Introduction - the tables we own</h1>
-<p>This folder is ours for the ten days. Three tables, three shapes.</p>
+<p>This folder is ours for the ten days. Four tables, four shapes.</p>
 <ul>
 <li><strong>Panel A</strong> (<code>panel-A.csv</code>) - ACS clinic file: age, height, weight, BMI, ejection fraction, lipids. <code>sex</code> and <code>obesity</code> for grouping.</li>
 <li><strong>Panel B</strong> (<code>panel-B.csv</code>) - same people, categorical information.</li>
 <li><strong>Panel C</strong> (<code>panel-C.csv</code>) - Africa data.</li>
+<li><strong>Panel D</strong> (<code>panel-D.csv</code>) - selected Hinkley monitoring well chromium data.</li>
 </ul>
 <p>We load from this folder:</p>
 <div class="cell">
@@ -216,10 +216,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.2.1     ✔ purrr     1.2.2
-✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ dplyr     1.2.1     ✔ stringr   1.6.0
+✔ forcats   1.0.1     ✔ tibble    3.3.1
 ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -1877,35 +1877,596 @@ $ gdpPercap &lt;dbl&gt; 6223.3675, 4797.2313, 1441.2849, 12569.8518, 1217.0330, 
 </table>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>C_mod <span class="ot">&lt;-</span> C <span class="sc">|&gt;</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), as.factor))</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(C_mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 52
+Columns: 6
+$ country   &lt;fct&gt; "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "B…
+$ continent &lt;fct&gt; Africa, Africa, Africa, Africa, Africa, Africa, Africa, Afri…
+$ year      &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, …
+$ lifeExp   &lt;dbl&gt; 72.301, 42.731, 56.728, 50.728, 52.295, 49.580, 50.430, 44.7…
+$ pop       &lt;dbl&gt; 33333216, 12420476, 8078314, 1639131, 14326203, 8390505, 176…
+$ gdpPercap &lt;dbl&gt; 6223.3675, 4797.2313, 1441.2849, 12569.8518, 1217.0330, 430.…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">"medium"</span>,</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnclass =</span> <span class="st">"sf"</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(world)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 242
+Columns: 169
+$ featurecla &lt;chr&gt; "Admin-0 country", "Admin-0 country", "Admin-0 country", "A…
+$ scalerank  &lt;int&gt; 1, 1, 1, 3, 5, 6, 1, 1, 1, 3, 5, 3, 3, 3, 3, 1, 5, 3, 3, 3,…
+$ labelrank  &lt;int&gt; 3, 3, 3, 2, 3, 6, 4, 3, 4, 6, 6, 6, 6, 6, 4, 5, 2, 4, 5, 6,…
+$ sovereignt &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ sov_a3     &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_dif   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ level      &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+$ type       &lt;chr&gt; "Sovereign country", "Sovereign country", "Sovereign countr…
+$ tlc        &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",…
+$ admin      &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ adm0_a3    &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ geou_dif   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ geounit    &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ gu_a3      &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ su_dif     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ subunit    &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ su_a3      &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ brk_diff   &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
+$ name       &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ name_long  &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ brk_a3     &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ brk_name   &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ brk_group  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ abbrev     &lt;chr&gt; "Zimb.", "Zambia", "Yem.", "Viet.", "Ven.", "Vat.", "Van.",…
+$ postal     &lt;chr&gt; "ZW", "ZM", "YE", "VN", "VE", "V", "VU", "UZ", "UY", "FSM",…
+$ formal_en  &lt;chr&gt; "Republic of Zimbabwe", "Republic of Zambia", "Republic of …
+$ formal_fr  &lt;chr&gt; NA, NA, NA, NA, "República Bolivariana de Venezuela", NA, N…
+$ name_ciawf &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Hol…
+$ note_adm0  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "U.S.A.", "U.S.…
+$ note_brk   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ name_sort  &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen, Rep.", "Vietnam", "Venezuela,…
+$ name_alt   &lt;chr&gt; NA, NA, NA, NA, NA, "Holy See", NA, NA, NA, NA, NA, NA, NA,…
+$ mapcolor7  &lt;int&gt; 1, 5, 5, 5, 1, 1, 6, 2, 1, 5, 2, 4, 4, 4, 4, 4, 4, 6, 6, 6,…
+$ mapcolor8  &lt;int&gt; 5, 8, 3, 6, 3, 3, 3, 3, 2, 2, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6,…
+$ mapcolor9  &lt;int&gt; 3, 5, 3, 5, 1, 4, 7, 5, 2, 4, 5, 1, 1, 1, 1, 1, 1, 6, 6, 6,…
+$ mapcolor13 &lt;int&gt; 9, 13, 11, 4, 4, 2, 3, 4, 10, 13, 3, 1, 1, 1, 1, 1, 1, 3, 3…
+$ pop_est    &lt;dbl&gt; 14645468, 17861030, 29161922, 96462106, 28515829, 825, 2998…
+$ pop_rank   &lt;int&gt; 14, 14, 15, 16, 15, 2, 10, 15, 12, 9, 8, 8, 9, 9, 8, 12, 17…
+$ pop_year   &lt;int&gt; 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019,…
+$ gdp_md     &lt;int&gt; 21440, 23309, 22581, 261921, 482359, -99, 934, 57921, 56045…
+$ gdp_year   &lt;int&gt; 2019, 2019, 2019, 2019, 2014, 2019, 2019, 2019, 2019, 2018,…
+$ economy    &lt;chr&gt; "5. Emerging region: G20", "7. Least developed region", "7.…
+$ income_grp &lt;chr&gt; "5. Low income", "4. Lower middle income", "4. Lower middle…
+$ fips_10    &lt;chr&gt; "ZI", "ZA", "YM", "VM", "VE", "VT", "NH", "UZ", "UY", "FM",…
+$ iso_a2     &lt;chr&gt; "ZW", "ZM", "YE", "VN", "VE", "VA", "VU", "UZ", "UY", "FM",…
+$ iso_a2_eh  &lt;chr&gt; "ZW", "ZM", "YE", "VN", "VE", "VA", "VU", "UZ", "UY", "FM",…
+$ iso_a3     &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ iso_a3_eh  &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ iso_n3     &lt;chr&gt; "716", "894", "887", "704", "862", "336", "548", "860", "85…
+$ iso_n3_eh  &lt;chr&gt; "716", "894", "887", "704", "862", "336", "548", "860", "85…
+$ un_a3      &lt;chr&gt; "716", "894", "887", "704", "862", "336", "548", "860", "85…
+$ wb_a2      &lt;chr&gt; "ZW", "ZM", "RY", "VN", "VE", "-99", "VU", "UZ", "UY", "FM"…
+$ wb_a3      &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "-99", "VUT", "UZB", "UR…
+$ woe_id     &lt;int&gt; 23425004, 23425003, 23425002, 23424984, 23424982, 23424986,…
+$ woe_id_eh  &lt;int&gt; 23425004, 23425003, 23425002, 23424984, 23424982, 23424986,…
+$ woe_note   &lt;chr&gt; "Exact WOE match as country", "Exact WOE match as country",…
+$ adm0_iso   &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_diff  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ adm0_tlc   &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_us &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_fr &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ru &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_es &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_cn &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_tw &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_in &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_np &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_pk &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_de &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_gb &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_br &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_il &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ps &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_sa &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_eg &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ma &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_pt &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ar &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_jp &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ko &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_vn &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_tr &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_id &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_pl &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_gr &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_it &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_nl &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_se &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_bd &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_ua &lt;chr&gt; "ZWE", "ZMB", "YEM", "VNM", "VEN", "VAT", "VUT", "UZB", "UR…
+$ adm0_a3_un &lt;int&gt; -99, -99, -99, -99, -99, -99, -99, -99, -99, -99, -99, -99,…
+$ adm0_a3_wb &lt;int&gt; -99, -99, -99, -99, -99, -99, -99, -99, -99, -99, -99, -99,…
+$ continent  &lt;chr&gt; "Africa", "Africa", "Asia", "Asia", "South America", "Europ…
+$ region_un  &lt;chr&gt; "Africa", "Africa", "Asia", "Asia", "Americas", "Europe", "…
+$ subregion  &lt;chr&gt; "Eastern Africa", "Eastern Africa", "Western Asia", "South-…
+$ region_wb  &lt;chr&gt; "Sub-Saharan Africa", "Sub-Saharan Africa", "Middle East &amp; …
+$ name_len   &lt;int&gt; 8, 6, 5, 7, 9, 7, 7, 10, 7, 10, 12, 14, 15, 4, 14, 11, 24, …
+$ long_len   &lt;int&gt; 8, 6, 5, 7, 9, 7, 7, 10, 7, 30, 16, 24, 28, 4, 14, 11, 13, …
+$ abbrev_len &lt;int&gt; 5, 6, 4, 5, 4, 4, 4, 4, 4, 6, 6, 6, 11, 4, 9, 4, 6, 10, 6, …
+$ tiny       &lt;int&gt; -99, -99, -99, 2, -99, 4, 2, 5, -99, -99, 2, 3, 3, 2, 3, -9…
+$ homepart   &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -99, -99, -99, -99, -99, 1…
+$ min_zoom   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ min_label  &lt;dbl&gt; 2.5, 3.0, 3.0, 2.0, 2.5, 5.0, 4.0, 3.0, 3.0, 5.0, 5.0, 5.0,…
+$ max_label  &lt;dbl&gt; 8.0, 8.0, 8.0, 7.0, 7.5, 10.0, 9.0, 8.0, 8.0, 10.0, 10.0, 1…
+$ label_x    &lt;dbl&gt; 29.92544, 26.39530, 45.87438, 105.38729, -64.59938, 12.4534…
+$ label_y    &lt;dbl&gt; -18.911640, -14.660804, 15.328226, 21.715416, 7.182476, 41.…
+$ ne_id      &lt;dbl&gt; 1159321441, 1159321439, 1159321425, 1159321417, 1159321411,…
+$ wikidataid &lt;chr&gt; "Q954", "Q953", "Q805", "Q881", "Q717", "Q237", "Q686", "Q2…
+$ name_ar    &lt;chr&gt; "زيمبابوي", "زامبيا", "اليمن", "فيتنام", "فنزويلا", "الفاتي…
+$ name_bn    &lt;chr&gt; "জিম্বাবুয়ে", "জাম্বিয়া", "ইয়েমেন", "ভিয়েতনাম", "ভেনেজুয়েলা", "ভ্যাটিকান সিটি", "ভানুয়াতু",…
+$ name_de    &lt;chr&gt; "Simbabwe", "Sambia", "Jemen", "Vietnam", "Venezuela", "Vat…
+$ name_en    &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vat…
+$ name_es    &lt;chr&gt; "Zimbabue", "Zambia", "Yemen", "Vietnam", "Venezuela", "Ciu…
+$ name_fa    &lt;chr&gt; "زیمبابوه", "زامبیا", "یمن", "ویتنام", "ونزوئلا", "واتیکان"…
+$ name_fr    &lt;chr&gt; "Zimbabwe", "Zambie", "Yémen", "Viêt Nam", "Venezuela", "Ci…
+$ name_el    &lt;chr&gt; "Ζιμπάμπουε", "Ζάμπια", "Υεμένη", "Βιετνάμ", "Βενεζουέλα", …
+$ name_he    &lt;chr&gt; "זימבבואה", "זמביה", "תימן", "וייטנאם", "ונצואלה", "קריית ה…
+$ name_hi    &lt;chr&gt; "ज़िम्बाब्वे", "ज़ाम्बिया", "यमन", "वियतनाम", "वेनेज़ुएला", "वैटिकन नगर", "वानूआटू", …
+$ name_hu    &lt;chr&gt; "Zimbabwe", "Zambia", "Jemen", "Vietnám", "Venezuela", "Vat…
+$ name_id    &lt;chr&gt; "Zimbabwe", "Zambia", "Yaman", "Vietnam", "Venezuela", "Vat…
+$ name_it    &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Cit…
+$ name_ja    &lt;chr&gt; "ジンバブエ", "ザンビア", "イエメン", "ベトナム", "ベネズエラ", "バチカン", "バヌアツ", "…
+$ name_ko    &lt;chr&gt; "짐바브웨", "잠비아", "예멘", "베트남", "베네수엘라", "바티칸 시국", "바누아투", "우즈베…
+$ name_nl    &lt;chr&gt; "Zimbabwe", "Zambia", "Jemen", "Vietnam", "Venezuela", "Vat…
+$ name_pl    &lt;chr&gt; "Zimbabwe", "Zambia", "Jemen", "Wietnam", "Wenezuela", "Wat…
+$ name_pt    &lt;chr&gt; "Zimbábue", "Zâmbia", "Iémen", "Vietname", "Venezuela", "Va…
+$ name_ru    &lt;chr&gt; "Зимбабве", "Замбия", "Йемен", "Вьетнам", "Венесуэла", "Ват…
+$ name_sv    &lt;chr&gt; "Zimbabwe", "Zambia", "Jemen", "Vietnam", "Venezuela", "Vat…
+$ name_tr    &lt;chr&gt; "Zimbabve", "Zambiya", "Yemen", "Vietnam", "Venezuela", "Va…
+$ name_uk    &lt;chr&gt; "Зімбабве", "Замбія", "Ємен", "В'єтнам", "Венесуела", "Вати…
+$ name_ur    &lt;chr&gt; "زمبابوے", "زیمبیا", "یمن", "ویتنام", "وینیزویلا", "ویٹیکن …
+$ name_vi    &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Việt Nam", "Venezuela", "Th…
+$ name_zh    &lt;chr&gt; "津巴布韦", "赞比亚", "也门", "越南", "委内瑞拉", "梵蒂冈", "瓦努阿图", "乌兹别克斯坦",…
+$ name_zht   &lt;chr&gt; "辛巴威", "尚比亞", "葉門", "越南", "委內瑞拉", "梵蒂岡", "萬那杜", "烏茲別克", "烏拉…
+$ fclass_iso &lt;chr&gt; "Admin-0 country", "Admin-0 country", "Admin-0 country", "A…
+$ tlc_diff   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_tlc &lt;chr&gt; "Admin-0 country", "Admin-0 country", "Admin-0 country", "A…
+$ fclass_us  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_fr  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ru  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_es  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_cn  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_tw  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_in  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_np  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_pk  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_de  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_gb  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_br  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_il  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ps  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_sa  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_eg  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ma  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_pt  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ar  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_jp  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ko  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_vn  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_tr  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_id  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_pl  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_gr  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_it  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_nl  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_se  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_bd  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ fclass_ua  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ geometry   &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((31.28789 -2..., MULTIPOLYGON (…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>world <span class="sc">|&gt;</span> </span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  ggformula<span class="sc">::</span><span class="fu">gf_sf</span>(<span class="at">geometry =</span> <span class="sc">~</span>geometry)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>world_selected <span class="ot">&lt;-</span> world <span class="sc">|&gt;</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(name, geometry)</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(world_selected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 242
+Columns: 2
+$ name     &lt;chr&gt; "Zimbabwe", "Zambia", "Yemen", "Vietnam", "Venezuela", "Vatic…
+$ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((31.28789 -2..., MULTIPOLYGON (((…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>C_modd <span class="ot">&lt;-</span> C_mod <span class="sc">|&gt;</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(world_selected, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"country"</span> <span class="ot">=</span> <span class="st">"name"</span>))</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(C_modd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 52
+Columns: 7
+$ country   &lt;chr&gt; "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "B…
+$ continent &lt;fct&gt; Africa, Africa, Africa, Africa, Africa, Africa, Africa, Afri…
+$ year      &lt;dbl&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, …
+$ lifeExp   &lt;dbl&gt; 72.301, 42.731, 56.728, 50.728, 52.295, 49.580, 50.430, 44.7…
+$ pop       &lt;dbl&gt; 33333216, 12420476, 8078314, 1639131, 14326203, 8390505, 176…
+$ gdpPercap &lt;dbl&gt; 6223.3675, 4797.2313, 1441.2849, 12569.8518, 1217.0330, 430.…
+$ geometry  &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((8.576563 36..., MULTIPOLYGON ((…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>C_modd <span class="sc">|&gt;</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(geometry)) <span class="sc">|&gt;</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 1
+# ℹ 1 variable: country &lt;chr&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="ask-2" class="level3">
 <h3 class="anchored" data-anchor-id="ask-2">2. Ask</h3>
-<p>One question this table can answer.</p>
+<p>One question this table can answer. 1. Which countries have the lowest life expectancy? 2. Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?</p>
 <p>One question this table cannot answer.</p>
+<ol type="1">
+<li>Why do some countries have a high GDP per capita but low life expectancy?</li>
+<li>What percentage of women help a country build its GDP per capita?</li>
+</ol>
 </section>
 <section id="choose-a-mark-2" class="level3">
 <h3 class="anchored" data-anchor-id="choose-a-mark-2">3. Choose a mark</h3>
-<p>Choose the map or graph type before coding.</p>
+<p>Question 1: Which countries have the lowest life expectancy?</p>
+<p>Mark: A map of Africa where countries are filled based on life expectancy.</p>
+<p>Question 2: Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?</p>
+<p>Mark:A map of Africa showing GDP per capita using fill colour and population using border colour.</p>
 </section>
 <section id="predict-2" class="level3">
 <h3 class="anchored" data-anchor-id="predict-2">4. Predict</h3>
-<p>What do we think we will see?</p>
+<p>We expect life expectancy to vary across African countries. We also expect population and GDP per capita to show some relationship, but it may not be very strong.</p>
 </section>
 <section id="make-2" class="level3">
 <h3 class="anchored" data-anchor-id="make-2">5. Make</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>C_modd <span class="sc">|&gt;</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  ggformula<span class="sc">::</span><span class="fu">gf_sf</span>(</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="sc">~</span>geometry,</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="sc">~</span>lifeExp,</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-67-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>C_modd <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  ggformula<span class="sc">::</span><span class="fu">gf_sf</span>(</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">geometry =</span> <span class="sc">~</span>geometry,</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="sc">~</span>gdpPercap,</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="sc">~</span>pop</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>  ggformula<span class="sc">::</span><span class="fu">gf_refine</span>(</span>
+<span id="cb112-8"><a href="#cb112-8" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_color_gradient</span>(</span>
+<span id="cb112-9"><a href="#cb112-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">low =</span> <span class="st">"#A1FA4F"</span>,</span>
+<span id="cb112-10"><a href="#cb112-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">high =</span> <span class="st">"#183E0C"</span></span>
+<span id="cb112-11"><a href="#cb112-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb112-12"><a href="#cb112-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb112-13"><a href="#cb112-13" aria-hidden="true" tabindex="-1"></a>  ggformula<span class="sc">::</span><span class="fu">gf_refine</span>(</span>
+<span id="cb112-14"><a href="#cb112-14" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">scale_fill_gradient</span>(</span>
+<span id="cb112-15"><a href="#cb112-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">low =</span> <span class="st">"#FFFE91"</span>,</span>
+<span id="cb112-16"><a href="#cb112-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">high =</span> <span class="st">"#BA1B1B"</span></span>
+<span id="cb112-17"><a href="#cb112-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb112-18"><a href="#cb112-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="say-2" class="level3">
 <h3 class="anchored" data-anchor-id="say-2">6. Say</h3>
-<p>Caption + one sentence we will stand behind.</p>
+<p>Title: Africa: A Data Visualization</p>
+<p>Caption: These maps show differences in life expectancy, population and GDP per capita across African countries.</p>
+<p>One statement we will stand by: The data shows clear differences in life expectancy, population and GDP per capita across African countries</p>
 </section>
 <section id="limit-2" class="level3">
 <h3 class="anchored" data-anchor-id="limit-2">7. Limit</h3>
-<p>What this panel cannot do.</p>
+<p>This panel only contains data from 2007, so we cannot study how these values changed over time. It also does not contain gender data, so we cannot compare life expectancy or GDP per capita between women and men.</p>
+</section>
+</section>
+<section id="panel-d---erin-brockovich" class="level1">
+<h1>Panel D - Erin Brockovich</h1>
+<section id="see-the-table-3" class="level3">
+<h3 class="anchored" data-anchor-id="see-the-table-3">1. See the table</h3>
+<p>Data source: Hinkley Groundwater Remediation Program, Second Quarter 2026 Plume Map.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/panel-D.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 7 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): well
+dbl (2): CrVI, CrT
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  well      CrVI   CrT
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1 MW-113S1   2.7   2.7
+2 MW-111S1   2.3   2.6
+3 MW-157S    1.9   2.2
+4 MW-156S    1.1   1.7
+5 MW-123S2   2.1   2.2
+6 MW-124S1   2.2   2.2
+7 MW-117S1   1.8   1.7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 7
+Columns: 3
+$ well &lt;chr&gt; "MW-113S1", "MW-111S1", "MW-157S", "MW-156S", "MW-123S2", "MW-124…
+$ CrVI &lt;dbl&gt; 2.7, 2.3, 1.9, 1.1, 2.1, 2.2, 1.8
+$ CrT  &lt;dbl&gt; 2.7, 2.6, 2.2, 1.7, 2.2, 2.2, 1.7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(D)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">D</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">well</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CrVI</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.01</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">1.85</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: left;">▂▁▅▇▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CrT</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.19</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">1.7</td>
+<td style="text-align: right;">1.95</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: left;">▅▁▇▁▅</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ask-3" class="level3">
+<h3 class="anchored" data-anchor-id="ask-3">2. Ask</h3>
+<p>Questions this table can answer.</p>
+<ol type="1">
+<li>Which selected monitoring well has the highest and lowest Cr(VI) concentration?</li>
+<li>How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?</li>
+</ol>
+<p>Questions this table cannot answer.</p>
+<ol type="1">
+<li>Why do chromium concentrations differ between the monitoring wells?</li>
+<li>Did the chromium contamination cause health problems for people living in Hinkley?</li>
+</ol>
+</section>
+<section id="choose-a-mark-3" class="level3">
+<h3 class="anchored" data-anchor-id="choose-a-mark-3">3. Choose a mark</h3>
+<p>Question 1: Which selected monitoring well has the highest and lowest Cr(VI) concentration?</p>
+<p>Mark: A bar chart comparing Cr(VI) concentration across the selected monitoring wells.</p>
+<p>Question 2: How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?</p>
+<p>Mark: A grouped bar chart comparing Cr(VI) and Cr(T) concentrations for each selected monitoring well.</p>
+</section>
+<section id="predict-3" class="level3">
+<h3 class="anchored" data-anchor-id="predict-3">4. Predict</h3>
+<p>We expect Cr(VI) concentrations to differ across the selected monitoring wells. We also expect Cr(T) values to be similar to, or slightly higher than, Cr(VI) at most wells.</p>
+</section>
+<section id="make-3" class="level3">
+<h3 class="anchored" data-anchor-id="make-3">5. Make</h3>
+<p>Question 1: Which selected monitoring well has the highest and lowest Cr(VI) concentration?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(D, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> well, <span class="at">y =</span> CrVI)) <span class="sc">+</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-70-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Question 2: How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>D_long <span class="ot">&lt;-</span> D <span class="sc">|&gt;</span></span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(CrVI, CrT),</span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"chromium_type"</span>,</span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"concentration"</span></span>
+<span id="cb121-6"><a href="#cb121-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb121-7"><a href="#cb121-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-8"><a href="#cb121-8" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(</span>
+<span id="cb121-9"><a href="#cb121-9" aria-hidden="true" tabindex="-1"></a>  D_long,</span>
+<span id="cb121-10"><a href="#cb121-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">aes</span>(</span>
+<span id="cb121-11"><a href="#cb121-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> well,</span>
+<span id="cb121-12"><a href="#cb121-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> concentration,</span>
+<span id="cb121-13"><a href="#cb121-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> chromium_type</span>
+<span id="cb121-14"><a href="#cb121-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb121-15"><a href="#cb121-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb121-16"><a href="#cb121-16" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-71-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="say-3" class="level3">
+<h3 class="anchored" data-anchor-id="say-3">6. Say</h3>
+<p>Title: Chromium levels across selected Hinkley monitoring wells</p>
+<p>Caption: These graphs compare Cr(VI) and total dissolved chromium, Cr(T), across seven selected monitoring wells from the Second Quarter 2026 Hinkley plume map.</p>
+<p>One statement we will stand by: Chromium concentrations differ across the selected wells, and Cr(T) is equal to or slightly higher than Cr(VI) at most of the wells.</p>
+</section>
+<section id="limit-3" class="level3">
+<h3 class="anchored" data-anchor-id="limit-3">7. Limit</h3>
+<p>This panel uses only seven selected monitoring wells from one part of the Second Quarter 2026 plume map. It does not represent every well in Hinkley, and it cannot explain why chromium levels differ between wells or what health effects they may have caused.</p>
 </section>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
-<p>From Panel B, I could see that some groups had differences. Cardiogenic shock was seen more in STEMI patients.From the graphs it looks like there is some relationships, and the chi-square test helped me check whether the difference is meaningful. Panel B doesn’t have numerical variables like age,BMI etc so those questions cannot be answered.</p>
+<p>What the spine looks like after four panels.</p>
+<p>The question we will defend in ninety seconds:<br>
+What patterns can we find from the health data, differences between African countries, and chromium levels in selected Hinkley monitoring wells?</p>
+<p>What we will not claim: We will not say that one variable is causing another just because we found a relationship between them.</p>
+<p>Which lines were human, which were machine: Most of the questions and observations were discussed by us. AI was used in some places to help us understand the code, fix errors and organise the work.</p>
+<p>Limits:<br>
+All the panels do not contain the same variables, so some questions cannot be answered. Panel C also contains data only from 2007, so we cannot understand changes over time. Panel D uses only seven selected monitoring wells, so it does not represent all wells in Hinkley.</p>
+<p>Gift for the steal-this strip:<br>
+Joining the country names in Panel C with the world map data and using the geometry column to show the values on a map.</p>
 
 
 </section>

@@ -1,20 +1,13 @@
 ---
-title: "Sample project"
----
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
----
 title: "Group 6 - Acute coronary syndrome and Africa"
 subtitle: "Studio wall"
-author: "Group names here"
+author: "Kasyap N R, Rachana, Jayani (Panels A & B); Kasyap N R, Madhumitha, Jai, Jayani (Panel C)"
 format:
   html:
     toc: true
     toc-depth: 2
 ---
+{{< include _setup.qmd >}}
 
 # Spine
 
@@ -26,12 +19,12 @@ cannot be introduced in a clause that hangs off this line, it is off the wall.
 
 # Introduction - the tables we own
 
-This folder is ours for the ten days. Three tables, three shapes.
+This folder is ours for the ten days. Four tables, four shapes.
 
-- **Panel A** (`panel-A.csv`) - ACS clinic file: age, height, weight, BMI,
-  ejection fraction, lipids. `sex` and `obesity` for grouping.
+- **Panel A** (`panel-A.csv`) - ACS clinic file: age, height, weight, BMI, ejection fraction, lipids. `sex` and `obesity` for grouping.
 - **Panel B** (`panel-B.csv`) - same people, categorical information.
 - **Panel C** (`panel-C.csv`) - Africa data.
+- **Panel D** (`panel-D.csv`) - selected Hinkley monitoring well chromium data.
 
 We load from this folder:
 
@@ -527,53 +520,223 @@ What is a case? Which columns are Quant / Qual? What is missing?
 glimpse(C)
 skim(C)
 ```
+```{r}
+C_mod <- C |>
+  mutate(across(where(is.character), as.factor))
+
+glimpse(C_mod)
+```
+```{r}
+world <- rnaturalearth::ne_countries(
+  scale = "medium",
+  returnclass = "sf"
+)
+
+glimpse(world)
+```
+```{r}
+world |> 
+  ggformula::gf_sf(geometry = ~geometry)
+```
+```{r}
+world_selected <- world |>
+  dplyr::select(name, geometry)
+
+glimpse(world_selected)
+```
+```{r}
+C_modd <- C_mod |>
+  left_join(world_selected, by = c("country" = "name"))
+
+glimpse(C_modd)
+```
+
+
+```{r}
+C_modd |>
+  filter(is.na(geometry)) |>
+  select(country)
+
+```
 
 ### 2. Ask
 
 One question this table can answer.
+1. Which countries have the lowest life expectancy?
+2. Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
 
 One question this table cannot answer.
 
+1. Why do some countries have a high GDP per capita but low life expectancy?
+2. What percentage of women help a country build its GDP per capita?
+
 ### 3. Choose a mark
 
-Choose the map or graph type before coding.
+Question 1:
+Which countries have the lowest life expectancy?
+
+Mark: A map of Africa where countries are filled based on life expectancy.
+
+Question 2:
+Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
+
+Mark:A map of Africa showing GDP per capita using fill colour and population using border colour.
 
 ### 4. Predict
 
-What do we think we will see?
+We expect life expectancy to vary across African countries. We also expect population and GDP per capita to show some relationship, but it may not be very strong.
 
 ### 5. Make
 
 ```{r}
+C_modd |>
+  ggformula::gf_sf(
+    geometry = ~geometry,
+    fill = ~lifeExp,
+    color = "black"
+  )
 
+```
+```{r}
+C_modd |>
+  ggformula::gf_sf(
+    geometry = ~geometry,
+    fill = ~gdpPercap,
+    color = ~pop
+  ) |>
+  ggformula::gf_refine(
+    ggplot2::scale_color_gradient(
+      low = "#A1FA4F",
+      high = "#183E0C"
+    )
+  ) |>
+  ggformula::gf_refine(
+    ggplot2::scale_fill_gradient(
+      low = "#FFFE91",
+      high = "#BA1B1B"
+    )
+  )
 ```
 
 ### 6. Say
 
-Caption + one sentence we will stand behind.
+Title: Africa: A Data Visualization
+
+Caption: These maps show differences in life expectancy, population and GDP per capita across African countries.
+
+One statement we will stand by:
+The data shows clear differences in life expectancy, population and GDP per capita across African countries
 
 ### 7. Limit
 
-What this panel cannot do.
+This panel only contains data from 2007, so we cannot study how these values changed over time. It also does not contain gender data, so we cannot compare life expectancy or GDP per capita between women and men.
 
+
+# Panel D - Erin Brockovich
+
+### 1. See the table
+
+Data source: Hinkley Groundwater Remediation Program, Second Quarter 2026 Plume Map.
+
+```{r}
+D <- read_csv("data/panel-D.csv")
+D
+
+glimpse(D)
+skim(D)
+```
+
+### 2. Ask
+
+Questions this table can answer.
+
+1. Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+2. How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+
+Questions this table cannot answer.
+
+1. Why do chromium concentrations differ between the monitoring wells?
+2. Did the chromium contamination cause health problems for people living in Hinkley?
+
+
+### 3. Choose a mark
+
+Question 1:
+Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+
+Mark: A bar chart comparing Cr(VI) concentration across the selected monitoring wells.
+
+Question 2:
+How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+
+Mark: A grouped bar chart comparing Cr(VI) and Cr(T) concentrations for each selected monitoring well.
+
+### 4. Predict
+
+We expect Cr(VI) concentrations to differ across the selected monitoring wells. We also expect Cr(T) values to be similar to, or slightly higher than, Cr(VI) at most wells.
+
+### 5. Make
+
+Question 1:
+Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+
+```{r}
+ggplot2::ggplot(D, ggplot2::aes(x = well, y = CrVI)) +
+  ggplot2::geom_col()
+```
+Question 2:
+How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+
+```{r}
+D_long <- D |>
+  tidyr::pivot_longer(
+    cols = c(CrVI, CrT),
+    names_to = "chromium_type",
+    values_to = "concentration"
+  )
+
+ggplot2::ggplot(
+  D_long,
+  ggplot2::aes(
+    x = well,
+    y = concentration,
+    fill = chromium_type
+  )
+) +
+  ggplot2::geom_col(position = "dodge")
+```
+
+### 6. Say
+
+Title: Chromium levels across selected Hinkley monitoring wells
+
+Caption: These graphs compare Cr(VI) and total dissolved chromium, Cr(T), across seven selected monitoring wells from the Second Quarter 2026 Hinkley plume map.
+
+One statement we will stand by:
+Chromium concentrations differ across the selected wells, and Cr(T) is equal to or slightly higher than Cr(VI) at most of the wells.
+
+### 7. Limit
+
+This panel uses only seven selected monitoring wells from one part of the Second Quarter 2026 plume map. It does not represent every well in Hinkley, and it cannot explain why chromium levels differ between wells or what health effects they may have caused.
 
 # Conclusion
-From Panel B, I could see that some groups had differences. Cardiogenic shock was seen more in STEMI patients.From the graphs it looks like there is some relationships, and the chi-square test helped me check whether the difference is meaningful. Panel B doesn't have numerical variables like age,BMI etc so those questions cannot be answered. 
 
+What the spine looks like after four panels.
 
+The question we will defend in ninety seconds:  
+What patterns can we find from the health data, differences between African countries, and chromium levels in selected Hinkley monitoring wells?
 
+What we will not claim: 
+We will not say that one variable is causing another just because we found a relationship between them.
 
+Which lines were human, which were machine: 
+Most of the questions and observations were discussed by us. AI was used in some places to help us understand the code, fix errors and organise the work.
 
+Limits:  
+All the panels do not contain the same variables, so some questions cannot be answered. Panel C also contains data only from 2007, so we cannot understand changes over time. Panel D uses only seven selected monitoring wells, so it does not represent all wells in Hinkley.
 
-
-
-
-
-
-
-
-
-
+Gift for the steal-this strip:  
+Joining the country names in Panel C with the world map data and using the geometry column to show the values on a map.
 
 
 
