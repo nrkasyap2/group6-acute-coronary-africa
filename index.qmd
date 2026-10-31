@@ -1,21 +1,20 @@
 ---
 title: "Group 6 - Acute coronary syndrome and Africa"
 subtitle: "Studio wall"
-author: "Kasyap N R, Rachana, Jayani (Panels A & B); Kasyap N R, Madhumitha, Jai, Jayani (Panel C)"
+author: "Myself, Rachana, Jayani (Panels A & B); Myself, Madhumitha, Jai, Jayani (Panel C); Myself, Anmol, Charitha (Panel E) "
 format:
   html:
     toc: true
     toc-depth: 2
 ---
+
 {{< include _setup.qmd >}}
 
 # Spine
 
-> Who arrives in acute coronary crisis, which habits travel with that crisis,
-> and where in Africa is life short?
+> Who arrives in acute coronary crisis, which habits travel with that crisis, and where in Africa is life short?
 
-This sentence stays at the top. Every panel must attach to it. If a plot
-cannot be introduced in a clause that hangs off this line, it is off the wall.
+This sentence stays at the top. Every panel must attach to it. If a plot cannot be introduced in a clause that hangs off this line, it is off the wall.
 
 # Introduction - the tables we own
 
@@ -36,6 +35,13 @@ library(skimr)
 A <- read_csv("data/panel-A.csv")
 B <- read_csv("data/panel-B.csv")
 C <- read_csv("data/panel-C.csv")
+D <- read_csv("data/panel-D.csv")
+hunch_1 <- read_csv("data/panel-hunch_1.csv")
+hunch_2 <- read_csv("data/panel-hunch_2.csv")
+hunch_3 <- read_csv("data/panel-hunch_3.csv")
+hunch_4 <- read_csv("data/panel-hunch_4.csv")
+hunch_5 <- read_csv("data/panel-hunch_5.csv")
+hunch_6 <- read_csv("data/panel-hunch_6.csv")
 ```
 
 # Panel A - body / measure
@@ -50,39 +56,20 @@ What is a case? Which columns are Quant / Qual? What is missing?
 glimpse(A)
 
 ```
+
 ```{r}
 skim(A)
 ```
 
 ### 2. Ask
 
-Questions this table can answer.
-1. Is age associated with EF?
-2. Is TC associated with LDLC?
-3. Does EF differ between males and females?
-4. Does obesity status vary between males and females?
-5. Is obesity independent of age?
-6. Does height, age and sex of the person effect BMI?
-7. Does EF decrease with age?
-8. Does the proportion of obese and non obese patients differ between males and females?
-9. Do obese patients generally show higher BMI values than non-obese patients?
-10.How many obese and non-obese participants are there in the dataset?
-11.How are the participants’ weights distributed?
-12.What is the age distribution of the participants?
+Questions this table can answer. 1. Is age associated with EF? 2. Is TC associated with LDLC? 3. Does EF differ between males and females? 4. Does obesity status vary between males and females? 5. Is obesity independent of age? 6. Does height, age and sex of the person effect BMI? 7. Does EF decrease with age? 8. Does the proportion of obese and non obese patients differ between males and females? 9. Do obese patients generally show higher BMI values than non-obese patients? 10.How many obese and non-obese participants are there in the dataset? 11.How are the participants’ weights distributed? 12.What is the age distribution of the participants?
 
-
-One question this table cannot answer.
-1. Is regular physical activity associated with ejection fraction (EF)?
-2. Does smoking cause higher cholesterol?
-3. Do diabetic patients have higher BMI?
-4. Does high blood pressure lead to lower EF?
-5. Does obesity cause a lower ejection fraction?
-6. Which patients had a STEMI, NSTEMI, or Unstable Angina?
-7. Will patients with high BMI develop heart disease in the future?
+One question this table cannot answer. 1. Is regular physical activity associated with ejection fraction (EF)? 2. Does smoking cause higher cholesterol? 3. Do diabetic patients have higher BMI? 4. Does high blood pressure lead to lower EF? 5. Does obesity cause a lower ejection fraction? 6. Which patients had a STEMI, NSTEMI, or Unstable Angina? 7. Will patients with high BMI develop heart disease in the future?
 
 ### 3. Choose a mark
 
-Use bar charts, histograms, box plots, or scatter plots depending on the type of variables and the questions being answered. 
+Use bar charts, histograms, box plots, or scatter plots depending on the type of variables and the questions being answered.
 
 ### 4. Predict
 
@@ -92,7 +79,8 @@ I expect some variables such as BMI and obesity status to show clear differences
 
 Create the graphs using ggplot2, and summaries or statistical tests where appropriate to examine the pattern in the data.
 
-1. Is age associated with EF?
+1.  Is age associated with EF?
+
 ```{r}
 
 
@@ -107,7 +95,9 @@ A |>
 
 
 ```
-2. Is TC associated with LDLC?
+
+2.  Is TC associated with LDLC?
+
 ```{r}
 A |>
   ggplot() +
@@ -118,7 +108,9 @@ A |>
     )
   )
 ```
-3. Does EF differ between males and females?
+
+3.  Does EF differ between males and females?
+
 ```{r}
 A |>
   ggplot() +
@@ -129,7 +121,9 @@ A |>
     )
   )
 ```
-4. Does obesity status vary between males and females?
+
+4.  Does obesity status vary between males and females?
+
 ```{r}
 A |>
   ggplot() +
@@ -141,7 +135,9 @@ A |>
     position = "dodge"
   )
 ```
-5. Is obesity independent of age?
+
+5.  Is obesity independent of age?
+
 ```{r}
 A |>
   ggplot() +
@@ -152,7 +148,9 @@ A |>
     )
   )
 ```
-6. Does height, age and sex of the person effect BMI ?
+
+6.  Does height, age and sex of the person effect BMI ?
+
 ```{r}
 A |>
   ggplot() +
@@ -165,14 +163,18 @@ A |>
     )
   )
 ```
-7. Does EF decrease with age?
+
+7.  Does EF decrease with age?
+
 ```{r}
 A |>
   ggplot(aes(x = age, y = EF)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
 ```
-8. Does the proportion of obese and non obese patients differ between males and females?
+
+8.  Does the proportion of obese and non obese patients differ between males and females?
+
 ```{r}
 A |>
   ggplot() +
@@ -184,7 +186,9 @@ A |>
     position = "fill"
   )
 ```
-9. Do obese patients generally show higher BMI values than non-obese patients?
+
+9.  Do obese patients generally show higher BMI values than non-obese patients?
+
 ```{r}
 A |>
   ggplot() +
@@ -195,6 +199,7 @@ A |>
     )
   )
 ```
+
 10. How many obese and non-obese participants are there in the dataset?
 
 ```{r}
@@ -202,6 +207,7 @@ A |>
   ggplot(aes(x = obesity)) +
   geom_bar()
 ```
+
 11. How are the participants’ weights distributed?
 
 ```{r}
@@ -209,6 +215,7 @@ A |>
   ggplot() +
   geom_histogram(aes(x = weight), bins = 30)
 ```
+
 12. What is the age distribution of the participants?
 
 ```{r}
@@ -217,8 +224,8 @@ A |>
   geom_histogram(aes(x = age), bins = 30)
 ```
 
-
 Does EF differ between males and females?
+
 ```{r}
 A |>
   ggplot() +
@@ -229,6 +236,7 @@ A |>
     )
   )
 ```
+
 ```{r}
 A |>
   group_by(sex) |>
@@ -236,10 +244,13 @@ A |>
     mean_EF = mean(EF, na.rm = TRUE)
   )
 ```
+
 ```{r}
 mosaic::t_test(EF ~ sex, data = A)
 ```
+
 Is obesity independent of age?
+
 ```{r}
 A |>
   ggplot() +
@@ -250,6 +261,7 @@ A |>
     )
   )
 ```
+
 ```{r}
 A |>
   group_by(obesity) |>
@@ -257,10 +269,13 @@ A |>
     mean_age = mean(age, na.rm = TRUE)
   )
 ```
+
 ```{r}
 mosaic::t_test(age ~ obesity, data = A)
 ```
+
 Do obese patients generally show higher BMI values than non-obese patients?
+
 ```{r}
 A |>
   ggplot() +
@@ -271,6 +286,7 @@ A |>
     )
   )
 ```
+
 ```{r}
 A |>
   group_by(obesity) |>
@@ -278,23 +294,18 @@ A |>
     mean_BMI = mean(BMI, na.rm = TRUE)
   )
 ```
+
 ```{r}
 mosaic::t_test(BMI ~ obesity, data = A)
 ```
 
-
-
-
-
 ### 6. Say
 
-6. Does height, age and sex of the person effect BMI?
-Ans. This graph is special because height and BMI are shown through position, while sex is shown by color and age by the size of the points.
+6.  Does height, age and sex of the person effect BMI? Ans. This graph is special because height and BMI are shown through position, while sex is shown by color and age by the size of the points.
 
 ### 7. Limit
 
 Panel A can only answer questions using the variables available in the table. It cannot answer questions about smoking, diagnosis, diabetes etc..
-
 
 # Panel B - category / talk
 
@@ -309,35 +320,19 @@ skim(B)
 
 ### 2. Ask
 
-One question this table can answer.
-1.Does smoking status vary by sex?
-2.Are the observed obesity patterns for males and females different from what would be expected by chance?
-3.Does smoking status differ across STEMI, NSTEMI, and Unstable Angina patients?
-4.Is obesity distributed differently across the different diagnosis groups?
-5.Is cardiogenic shock more common in certain diagnosis groups?
-6.Does the type of entry, Radial or Femoral, differ across diagnosis groups?
-7.Is diabetes associated with high blood pressure?
-8.Is cardiogenic shock associated with smoking status?
+One question this table can answer. 1.Does smoking status vary by sex? 2.Are the observed obesity patterns for males and females different from what would be expected by chance? 3.Does smoking status differ across STEMI, NSTEMI, and Unstable Angina patients? 4.Is obesity distributed differently across the different diagnosis groups? 5.Is cardiogenic shock more common in certain diagnosis groups? 6.Does the type of entry, Radial or Femoral, differ across diagnosis groups? 7.Is diabetes associated with high blood pressure? 8.Is cardiogenic shock associated with smoking status?
 
-One question this table cannot answer.
-1. What is the average age of patients with STEMI?
-Ans. Age is not available in Panel B.
+One question this table cannot answer. 1. What is the average age of patients with STEMI? Ans. Age is not available in Panel B.
 
-2. Do obese patients have a higher BMI than non-obese patients?
-Ans. BMI values are not available in Panel B.
+2.  Do obese patients have a higher BMI than non-obese patients? Ans. BMI values are not available in Panel B.
 
-3. Do smokers have higher cholesterol levels than non-smokers?
-Ans. Cholestrol levels are not available in Panel B.
+3.  Do smokers have higher cholesterol levels than non-smokers? Ans. Cholestrol levels are not available in Panel B.
 
-4. Do patients with diabetes have a lower ejection fraction?
-Ans. Ejection fraction is not available in Panel B.
+4.  Do patients with diabetes have a lower ejection fraction? Ans. Ejection fraction is not available in Panel B.
 
-5. Which patients recovered faster after treatment?
-Ans. Panel B does not contain treatment or recovery time information.
+5.  Which patients recovered faster after treatment? Ans. Panel B does not contain treatment or recovery time information.
 
-6. How long had each patient been smoking?
-Ans. Panel B gives smoking status but not the duration of smoking.
-
+6.  How long had each patient been smoking? Ans. Panel B gives smoking status but not the duration of smoking.
 
 ### 3. Choose a mark
 
@@ -352,6 +347,7 @@ I expect some qualitative variables to show clear differences between groups, wh
 ```{r}
 vcd::structable(smoking ~ sex, data = B)
 ```
+
 1.Does smoking status vary by sex?
 
 ```{r}
@@ -363,12 +359,15 @@ B |>
 vcd::structable(smoking ~ sex, data = B) |> vcd::mosaic()
 
 ```
+
 ```{r}
 vcd::structable(smoking ~ sex, data = B) |> vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(smoking ~ sex, data = B)
 ```
+
 2.Are the observed obesity patterns for males and females different from what would be expected by chance?
 
 ```{r}
@@ -379,38 +378,45 @@ B |>
 ```{r}
 vcd::structable(obesity ~ sex, data = B) |> vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(obesity ~ sex, data = B) |> vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(obesity ~ sex, data = B)
 ```
+
 3.Does smoking status differ across STEMI, NSTEMI, and Unstable Angina patients?
+
 ```{r}
 
 B |>
   gf_bar(~ Dx, fill = ~ smoking, position = "dodge")
 ```
 
-
 ```{r}
 vcd::structable(smoking ~ Dx, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(smoking ~ Dx, data = B) |>
   vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(smoking ~ Dx, data = B)
 ```
-4. Is obesity distributed differently across the different diagnosis groups?
+
+4.  Is obesity distributed differently across the different diagnosis groups?
 
 ```{r}
 
 B |>
   gf_bar(~ Dx, fill = ~ obesity, position = "dodge")
 ```
+
 ```{r}
 B |> gf_bar(~Dx, fill = ~ obesity, position = "fill")
 ```
@@ -419,10 +425,12 @@ B |> gf_bar(~Dx, fill = ~ obesity, position = "fill")
 vcd::structable(obesity ~ Dx, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(obesity ~ Dx, data = B) |>
   vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(obesity ~ Dx, data = B)
 ```
@@ -439,14 +447,18 @@ B |>
 vcd::structable(cardiogenicShock ~ Dx, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(cardiogenicShock ~ Dx, data = B) |>
   vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(cardiogenicShock ~ Dx, data = B)
 ```
-6. Does the type of entry, Radial or Femoral, differ across diagnosis groups?
+
+6.  Does the type of entry, Radial or Femoral, differ across diagnosis groups?
+
 ```{r}
 B |>
   gf_bar(~ Dx, fill = ~ entry, position = "dodge")
@@ -456,14 +468,18 @@ B |>
 vcd::structable(entry ~ Dx, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(entry ~ Dx, data = B) |>
   vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(entry ~ Dx, data = B)
 ```
+
 7.Is diabetes associated with high blood pressure?
+
 ```{r}
 B |>
   gf_bar(~ HBP, fill = ~ DM, position = "dodge")
@@ -473,13 +489,16 @@ B |>
 vcd::structable(DM ~ HBP, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(DM ~ HBP, data = B) |>
   vcd::mosaic(type = "expected")
 ```
+
 ```{r}
 mosaic::xchisq.test(DM ~ HBP, data = B)
 ```
+
 8.Is cardiogenic shock associated with smoking status?
 
 ```{r}
@@ -487,16 +506,17 @@ B |>
   gf_bar(~ smoking, fill = ~ cardiogenicShock, position = "dodge")
 ```
 
-
 ```{r}
 vcd::structable(cardiogenicShock ~ smoking, data = B) |>
   vcd::mosaic()
 ```
+
 ```{r}
 vcd::structable(cardiogenicShock ~ smoking, data = B) |>
   vcd::mosaic(type = "expected")
 
 ```
+
 ```{r}
 mosaic::xchisq.test(cardiogenicShock ~ smoking, data = B)
 ```
@@ -509,7 +529,6 @@ The graphs helped me see the differences between the groups, and the chi-square 
 
 Panel B can only answer questions using the variables available in the table and the results shows the associations.
 
-
 # Panel C - place
 
 ### 1. See the table
@@ -520,12 +539,14 @@ What is a case? Which columns are Quant / Qual? What is missing?
 glimpse(C)
 skim(C)
 ```
+
 ```{r}
 C_mod <- C |>
   mutate(across(where(is.character), as.factor))
 
 glimpse(C_mod)
 ```
+
 ```{r}
 world <- rnaturalearth::ne_countries(
   scale = "medium",
@@ -534,23 +555,25 @@ world <- rnaturalearth::ne_countries(
 
 glimpse(world)
 ```
+
 ```{r}
 world |> 
   ggformula::gf_sf(geometry = ~geometry)
 ```
+
 ```{r}
 world_selected <- world |>
   dplyr::select(name, geometry)
 
 glimpse(world_selected)
 ```
+
 ```{r}
 C_modd <- C_mod |>
   left_join(world_selected, by = c("country" = "name"))
 
 glimpse(C_modd)
 ```
-
 
 ```{r}
 C_modd |>
@@ -561,24 +584,20 @@ C_modd |>
 
 ### 2. Ask
 
-One question this table can answer.
-1. Which countries have the lowest life expectancy?
-2. Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
+One question this table can answer. 1. Which countries have the lowest life expectancy? 2. Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
 
 One question this table cannot answer.
 
-1. Why do some countries have a high GDP per capita but low life expectancy?
-2. What percentage of women help a country build its GDP per capita?
+1.  Why do some countries have a high GDP per capita but low life expectancy?
+2.  What percentage of women help a country build its GDP per capita?
 
 ### 3. Choose a mark
 
-Question 1:
-Which countries have the lowest life expectancy?
+Question 1: Which countries have the lowest life expectancy?
 
 Mark: A map of Africa where countries are filled based on life expectancy.
 
-Question 2:
-Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
+Question 2: Is there a relation between population of a country and GDP per capita? Is GDP per capita higher with higher population?
 
 Mark:A map of Africa showing GDP per capita using fill colour and population using border colour.
 
@@ -597,6 +616,7 @@ C_modd |>
   )
 
 ```
+
 ```{r}
 C_modd |>
   ggformula::gf_sf(
@@ -624,13 +644,11 @@ Title: Africa: A Data Visualization
 
 Caption: These maps show differences in life expectancy, population and GDP per capita across African countries.
 
-One statement we will stand by:
-The data shows clear differences in life expectancy, population and GDP per capita across African countries
+One statement we will stand by: The data shows clear differences in life expectancy, population and GDP per capita across African countries
 
 ### 7. Limit
 
 This panel only contains data from 2007, so we cannot study how these values changed over time. It also does not contain gender data, so we cannot compare life expectancy or GDP per capita between women and men.
-
 
 # Panel D - Erin Brockovich
 
@@ -650,24 +668,21 @@ skim(D)
 
 Questions this table can answer.
 
-1. Which selected monitoring well has the highest and lowest Cr(VI) concentration?
-2. How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+1.  Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+2.  How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
 
 Questions this table cannot answer.
 
-1. Why do chromium concentrations differ between the monitoring wells?
-2. Did the chromium contamination cause health problems for people living in Hinkley?
-
+1.  Why do chromium concentrations differ between the monitoring wells?
+2.  Did the chromium contamination cause health problems for people living in Hinkley?
 
 ### 3. Choose a mark
 
-Question 1:
-Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+Question 1: Which selected monitoring well has the highest and lowest Cr(VI) concentration?
 
 Mark: A bar chart comparing Cr(VI) concentration across the selected monitoring wells.
 
-Question 2:
-How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+Question 2: How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
 
 Mark: A grouped bar chart comparing Cr(VI) and Cr(T) concentrations for each selected monitoring well.
 
@@ -677,15 +692,14 @@ We expect Cr(VI) concentrations to differ across the selected monitoring wells. 
 
 ### 5. Make
 
-Question 1:
-Which selected monitoring well has the highest and lowest Cr(VI) concentration?
+Question 1: Which selected monitoring well has the highest and lowest Cr(VI) concentration?
 
 ```{r}
 ggplot2::ggplot(D, ggplot2::aes(x = well, y = CrVI)) +
   ggplot2::geom_col()
 ```
-Question 2:
-How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
+
+Question 2: How do Cr(VI) and Cr(T) concentrations compare across the selected monitoring wells?
 
 ```{r}
 D_long <- D |>
@@ -712,34 +726,466 @@ Title: Chromium levels across selected Hinkley monitoring wells
 
 Caption: These graphs compare Cr(VI) and total dissolved chromium, Cr(T), across seven selected monitoring wells from the Second Quarter 2026 Hinkley plume map.
 
-One statement we will stand by:
-Chromium concentrations differ across the selected wells, and Cr(T) is equal to or slightly higher than Cr(VI) at most of the wells.
+One statement we will stand by: Chromium concentrations differ across the selected wells, and Cr(T) is equal to or slightly higher than Cr(VI) at most of the wells.
 
 ### 7. Limit
 
 This panel uses only seven selected monitoring wells from one part of the Second Quarter 2026 plume map. It does not represent every well in Hinkley, and it cannot explain why chromium levels differ between wells or what health effects they may have caused.
 
+# Panel E
+
+### Setting up
+
+```{r}
+library(tidyverse)   
+library(ggformula)  
+library(mosaic)      
+library(broom)        
+library(infer)        
+library(supernova)    
+library(ggstatsplot)  
+library(ggcompare)    
+library(patchwork)    
+library(ggprism)      
+library(paletteer)    
+library(janitor)
+
+```
+
+# Panel E — Hunches
+
+## Setting up
+
+The libraries are already loaded above this section. The code below assumes the six datasets have already been loaded as `hunch_1` through `hunch_6`.
+
+## Hunch 1 — Friends vs House vs Modern Family
+
+### Prepare the data
+
+```{r}
+hunch_1 <- hunch_1 |>
+  janitor::clean_names()
+
+names(hunch_1)
+```
+
+The ratings are stored as text such as `7/10`. Convert them to numbers, then put the three shows into one column so their ratings can be compared.
+
+```{r}
+hunch_1_mod <- hunch_1 |>
+  mutate(
+    friends = readr::parse_number(friends),
+    house = readr::parse_number(house),
+    modern_family = readr::parse_number(modern_family)
+  ) |>
+  pivot_longer(
+    cols = c(friends, house, modern_family),
+    names_to = "show",
+    values_to = "scores"
+  )
+
+hunch_1_mean <- hunch_1_mod |>
+  group_by(show) |>
+  summarise(
+    mean_score = mean(scores, na.rm = TRUE),
+    number_of_ratings = sum(!is.na(scores)),
+    .groups = "drop"
+  )
+
+hunch_1_mean
+```
+
+Run an ANOVA to check whether the average ratings differ across the three shows.
+
+```{r}
+aov(scores ~ show, data = hunch_1_mod) |>
+  supernova::supernova()
+```
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_1)
+skimr::skim(hunch_1)
+```
+
+A case is one student who was asked to rate the TV shows. The `students` column is an identifier for each respondent. The ratings for Friends, House, and Modern Family are quantitative variables because the students rated the shows out of 10. Missing values mean a respondent did not provide a rating for that show.
+
+### 2. Ask
+
+**Q1. How do the ratings differ between Friends, House, and Modern Family when each pair of shows is compared?**
+
+### 3. Choose a mark
+
+I will use a bar chart to compare the average ratings of the three TV shows. The x-axis will represent the shows, and the y-axis will represent their average ratings. An ANOVA test will help determine whether the mean ratings differ statistically.
+
+### 4. Predict
+
+I predict that the average ratings will differ between the three shows, with one show receiving a higher average rating than the others.
+
+### 5. Make
+
+```{r}
+hunch_1_mean |>
+  gf_col(
+    mean_score ~ show,
+    fill = ~ show
+  ) |>
+  gf_refine(
+    scale_fill_manual(
+      values = c(
+        "friends" = "yellow",
+        "house" = "lightblue",
+        "modern_family" = "pink"
+      )
+    )
+  ) |>
+  gf_labs(
+    title = "Which TV Show Received the Highest Rating?",
+    subtitle = "Average ratings of Friends, House, and Modern Family",
+    x = "TV Show",
+    y = "Average Rating (out of 10)",
+    fill = "TV Show",
+    caption = "Source: FOSEDA Panel E, Hunch 1 dataset"
+  ) |>
+  gf_theme(theme_minimal(base_size = 13))
+```
+
+### 6. Say
+
+The bar chart compares the average ratings of the three shows.
+
+**Finding to report:** The show with the highest average rating is ***, while the show with the lowest average rating is*** . The ANOVA result indicates whether the differences between the mean ratings are statistically significant. Fill in these blanks after checking the graph and ANOVA output.
+
+### 7. Limit
+
+The ratings represent only the respondents in this dataset. They cannot establish which show is most popular among the general population. Missing ratings may affect the comparison because some respondents may not have watched every show. The data also cannot explain why respondents prefer one show over another.
+
+------------------------------------------------------------------------
+
+## Hunch 2 — I Am an INTJ
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_2)
+skimr::skim(hunch_2)
+```
+
+A case is one respondent. `sno` is an identifier. `department`, `mbti-type`, and `social-orientation` are categorical variables. Check the table for missing values before interpreting the graph.
+
+### 2. Ask
+
+**Q1. How are personality types distributed among SMI and MIT students, and what patterns can we find?**
+
+### 3. Choose a mark
+
+I will use horizontal bar charts separated into SMI and MIT panels to compare the distribution of MBTI personality types. The bars will represent the number of students, and the panels will separate the two departments.
+
+### 4. Predict
+
+I predict that some personality types will appear more frequently than others and that the distribution may differ between SMI and MIT students.
+
+### 5. Make
+
+```{r}
+hunch_2 |>
+  gf_bar(
+    ~ `mbti-type`,
+    fill = ~ `mbti-type`
+  ) |>
+  gf_facet_wrap(~ department) |>
+  gf_labs(
+    title = "Personality Types Among SMI and MIT Students",
+    subtitle = "Comparing MBTI personality types across departments",
+    x = "Number of Students",
+    y = "MBTI Personality Type",
+    fill = "MBTI Personality Type",
+    caption = "Source: FOSEDA Panel E, Hunch 2 dataset (n = 60)"
+  ) |>
+  gf_refine(coord_flip()) |>
+  gf_theme(theme_minimal(base_size = 12))
+```
+
+### 6. Say
+
+The graph shows how frequently different MBTI personality types appear in the two departments.
+
+**Finding to report:** The most frequently represented personality type in SMI is ***, while the most frequently represented type in MIT is*** . The distributions appear \_\_\_ between the two departments. Fill in the blanks after checking the graph.
+
+### 7. Limit
+
+The dataset only represents the respondents who participated in the survey. It cannot establish that studying in a particular department causes someone to have a specific personality type. The results may not represent all students at SMI or MIT.
+
+------------------------------------------------------------------------
+
+## Hunch 3 — Allowance
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_3)
+skimr::skim(hunch_3)
+```
+
+A case is one respondent. `respondent` is an identifier, `gender` is categorical, and `allowance` is quantitative. Check the table for missing values and unusually high or low values.
+
+### 2. Ask
+
+**Q1. Do male and female respondents receive different allowances?**
+
+### 3. Choose a mark
+
+I will use a box plot with individual data points to compare allowance amounts between male and female respondents. The box plots will show the distributions, while the points will show individual responses. This will make it easier to identify differences and unusually high or low values.
+
+### 4. Predict
+
+I predict that allowance amounts will vary among respondents and that the distribution may differ between male and female students. Some students may receive considerably higher allowances than others.
+
+### 5. Make
+
+```{r}
+hunch_3 |>
+  gf_boxplot(
+    allowance ~ gender,
+    fill = ~ gender,
+    alpha = 0.4,
+    width = 0.5
+  ) |>
+  gf_jitter(
+    allowance ~ gender,
+    color = "black",
+    width = 0.12,
+    height = 0,
+    size = 2.5,
+    alpha = 0.8
+  ) |>
+  gf_labs(
+    title = "Do Male and Female Students Receive Different Allowances?",
+    subtitle = "Comparing allowance distributions and individual responses",
+    x = "Gender",
+    y = "Allowance Amount",
+    fill = "Gender",
+    caption = "Source: FOSEDA Panel E, Hunch 3 dataset"
+  ) |>
+  gf_theme(theme_minimal(base_size = 13))
+```
+
+### 6. Say
+
+The box plot compares the distribution of allowance amounts between male and female respondents. The individual points show the variation in responses and help identify unusually high values.
+
+**Finding to report:** The median allowance for male respondents is ***, compared with*** for female respondents. The distributions show \_\_\_ between the two groups. Fill in the blanks after checking the graph.
+
+### 7. Limit
+
+The data cannot explain why students receive different allowance amounts or establish that gender causes these differences. An unusually high value can stretch the vertical axis and make most other observations appear close together. The findings may not represent students outside this survey.
+
+------------------------------------------------------------------------
+
+## Hunch 4 — Belief in AI: Art vs. Design
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_4)
+skimr::skim(hunch_4)
+```
+
+A case is one respondent. `count` is an identifier, while `gender`, `program`, and `AI_belief` are categorical variables. The program names and response labels may have inconsistent capitalization or extra spaces, so check their values before interpreting the graph.
+
+### 2. Ask
+
+**Q1. Does the relationship between gender and AI belief differ by program?**
+
+### 3. Choose a mark
+
+I will use grouped bar charts separated into Art and Design panels. The x-axis will represent gender, the y-axis will show the number of respondents, and the bar colors will represent whether respondents believe in AI. This will allow me to compare responses across gender and program.
+
+### 4. Predict
+
+I predict that belief in AI may differ between male and female respondents and that this pattern may also vary between Art and Design students.
+
+### 5. Make
+
+```{r}
+hunch_4_clean <- hunch_4 |>
+  mutate(
+    gender = stringr::str_to_title(stringr::str_trim(gender)),
+    program = stringr::str_to_title(stringr::str_trim(program)),
+    AI_belief = stringr::str_to_title(stringr::str_trim(AI_belief))
+  )
+
+hunch_4_clean |>
+  gf_bar(
+    ~ gender,
+    fill = ~ AI_belief,
+    position = "dodge"
+  ) |>
+  gf_facet_wrap(~ program) |>
+  gf_labs(
+    title = "How Does AI Belief Vary by Gender and Program?",
+    subtitle = "Comparing responses from art and design students",
+    x = "Gender",
+    y = "Number of Respondents",
+    fill = "Belief in AI",
+    caption = "Source: FOSEDA Panel E, Hunch 4 dataset"
+  ) |>
+  gf_theme(theme_minimal(base_size = 13))
+```
+
+### 6. Say
+
+The graph compares Yes and No responses across genders in the Art and Design programs.
+
+**Finding to report:** The distribution of AI belief appears \_\_\_ between male and female respondents in Art, while the pattern in Design appears ***. This suggests that the relationship between gender and AI belief*** across the two programs. Fill in the blanks after checking the graph.
+
+### 7. Limit
+
+The data records the respondents' beliefs but does not explain why those beliefs exist. It cannot establish that gender or academic program causes a particular belief. The findings may not represent all art and design students.
+
+------------------------------------------------------------------------
+
+## Hunch 5 — Some People Find Making Friends Easier
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_5)
+skimr::skim(hunch_5)
+```
+
+A case is one respondent. `respondants` is an identifier, while `department` and `relationship_status` are categorical variables. The available variables record relationship status; they do not directly measure how easy someone finds it to make friends.
+
+### 2. Ask
+
+**Q1. Why do some students find it easier to make friends than others, and what patterns can we discover among SMI and MIT students?**
+
+### 3. Choose a mark
+
+I will use a grouped bar chart to compare relationship-status responses between SMI and MIT students. The x-axis will represent relationship status, the y-axis will show the number of respondents, and the colors will represent the department.
+
+The available variables can show differences in relationship status, but they do not directly measure how easy students find it to make friends.
+
+### 4. Predict
+
+I predict that the distribution of relationship-status responses may differ between SMI and MIT students.
+
+### 5. Make
+
+```{r}
+hunch_5 |>
+  gf_bar(
+    ~ relationship_status,
+    fill = ~ department,
+    position = "dodge"
+  ) |>
+  gf_labs(
+    title = "Are Students in Relationships?",
+    subtitle = "Comparing SMI and MIT students",
+    x = "Relationship Status",
+    y = "Number of Students",
+    fill = "Department",
+    caption = "Source: FOSEDA Panel E, Hunch 5 dataset"
+  ) |>
+  gf_theme(theme_minimal(base_size = 13))
+```
+
+### 6. Say
+
+The graph compares the number of respondents reporting Yes or No for relationship status across the two departments.
+
+**Finding to report:** The proportion of respondents reporting that they are in a relationship is \_\_\_ at SMI and \_\_\_ at MIT. The graph shows \_\_\_ between the departments. Fill in the blanks after checking the graph.
+
+### 7. Limit
+
+The dataset records relationship status, not how easy students find it to make friends. It cannot explain why students are or are not in relationships, measure the quality of their friendships, or establish that attending a particular institution causes differences in relationship status.
+
+------------------------------------------------------------------------
+
+## Hunch 6 — Do Tattoos Make People Look Attractive?
+
+### 1. See the table
+
+What is a case? Which columns are Quant / Qual? What is missing?
+
+```{r}
+glimpse(hunch_6)
+skimr::skim(hunch_6)
+```
+
+A case is one respondent. `Respondents` is an identifier, while `Gender`, `Has_tattoos?`, and `Opinion` are categorical variables. `Opinion` records whether the respondent thinks tattoos make people look attractive.
+
+### 2. Ask
+
+**Q1. How does having tattoos relate to people's opinions about tattoo attractiveness, and how do these opinions differ by gender?**
+
+### 3. Choose a mark
+
+I will use bar charts separated by gender to compare Yes and No opinions about tattoo attractiveness. The x-axis will represent the opinions, and the y-axis will show the number of respondents.
+
+For the simplified graph, the bar colors will represent the opinions rather than tattoo ownership. This makes the comparison between Yes and No responses within each gender easier to read. Because this graph does not use `Has_tattoos?`, it only answers the part of the question about opinions by gender.
+
+### 4. Predict
+
+I predict that most respondents may consider tattoos attractive, but opinions may differ between male and female respondents.
+
+### 5. Make
+
+```{r}
+hunch_6 |>
+  mutate(
+    Opinion = stringr::str_to_title(stringr::str_trim(Opinion)),
+    Gender = stringr::str_to_title(stringr::str_trim(Gender))
+  ) |>
+  gf_bar(
+    ~ Opinion,
+    fill = ~ Opinion
+  ) |>
+  gf_facet_wrap(~ Gender) |>
+  gf_labs(
+    title = "Do Tattoos Make People Look Attractive?",
+    subtitle = "Comparing opinions between female and male respondents",
+    x = "Opinion on Tattoo Attractiveness",
+    y = "Number of Respondents",
+    fill = "Opinion",
+    caption = "Source: FOSEDA Panel E, Hunch 6 dataset"
+  ) |>
+  gf_theme(theme_minimal(base_size = 13))
+```
+
+### 6. Say
+
+The graph shows the number of male and female respondents who answered Yes or No to the question of whether tattoos make people look attractive.
+
+**Finding to report:** Among female respondents, \_\_\_ answered Yes and \_\_\_ answered No. Among male respondents, \_\_\_ answered Yes and \_\_\_ answered No. This suggests that opinions about tattoo attractiveness \_\_\_ between the two groups. Fill in the blanks after checking the graph.
+
+### 7. Limit
+
+The data records opinions about tattoo attractiveness, not objective attractiveness. It cannot establish whether tattoos actually make someone more attractive or explain why respondents hold particular opinions. The simplified graph also does not show whether respondents have tattoos themselves, so it cannot establish whether tattoo ownership is related to those opinions.
+
+### 8. Conclusion
+
 # Conclusion
 
-What the spine looks like after four panels.
+Through Panels A to E, we worked with different kinds of data and tried to understand what patterns we could find from them.
 
-The question we will defend in ninety seconds:  
-What patterns can we find from the health data, differences between African countries, and chromium levels in selected Hinkley monitoring wells?
+Panels A and B were mainly related to health data. Panel C was about African countries and included life expectancy, population and GDP per capita. Panel D was about chromium levels in selected monitoring wells in Hinkley.
 
-What we will not claim: 
-We will not say that one variable is causing another just because we found a relationship between them.
+Panel E was different because it included six different hunches. In these hunches, we explored topics like TV show ratings, personality types, allowance, belief in AI among Art and Design students, making friends and opinions about tattoos and attractiveness.
 
-Which lines were human, which were machine: 
-Most of the questions and observations were discussed by us. AI was used in some places to help us understand the code, fix errors and organise the work.
+From all these panels, I understood that different types of data need different ways of analysing and visualising them. We also had to be careful not to say that one variable causes another just because we found a difference or relationship.
 
-Limits:  
-All the panels do not contain the same variables, so some questions cannot be answered. Panel C also contains data only from 2007, so we cannot understand changes over time. Panel D uses only seven selected monitoring wells, so it does not represent all wells in Hinkley.
+There were also limitations in each panel. Some datasets had missing values, some had only a limited number of responses, and the data we collected cannot represent everyone.
 
-Gift for the steal-this strip:  
-Joining the country names in Panel C with the world map data and using the geometry column to show the values on a map.
-
-
-
-
-
-
+Overall, this project helped me understand how to look at a dataset, ask questions from it, choose a suitable graph or test and then explain what the result actually means.
